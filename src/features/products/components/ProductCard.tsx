@@ -122,33 +122,33 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="bg-white border border-gray-200 rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
     >
       {/* Top Image & Floating Badges */}
-      <div className="relative w-full h-60 bg-white overflow-hidden flex items-center justify-center p-3">
+      <div className="relative w-full h-44 sm:h-60 bg-white overflow-hidden flex items-center justify-center p-2 sm:p-3">
         <Link href={productUrl} className="w-full h-full flex items-center justify-center">
           <Image
             src={product.imageCover}
             alt={product.title}
             width={240}
             height={240}
-            className="w-full h-60 object-contain bg-white group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-44 sm:h-60 object-contain bg-white group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
         </Link>
 
         {/* Discount Badge */}
         {hasDiscount && (
-          <div className="absolute top-3 left-3 z-10 pointer-events-none">
-            <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded shadow-xs">
+          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 pointer-events-none">
+            <span className="bg-red-500 text-white text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded shadow-xs">
               -{discountPercentage}%
             </span>
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="absolute top-3 right-3 flex flex-col space-y-2 z-10">
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col space-y-1.5 sm:space-y-2 z-10">
           <button
             type="button"
             onClick={handleToggleWishlist}
-            className={`bg-white h-8 w-8 rounded-full flex items-center justify-center transition shadow-xs hover:shadow-md cursor-pointer ${
+            className={`bg-white size-7 sm:size-8 rounded-full flex items-center justify-center transition shadow-xs hover:shadow-md cursor-pointer ${
               effectiveWishlisted
                 ? "text-red-500"
                 : "text-gray-600 hover:text-red-500"
@@ -157,38 +157,38 @@ export default function ProductCard({ product }: ProductCardProps) {
             aria-label="Wishlist"
           >
             {effectiveWishlisted ? (
-              <IconHeartFilled size={16} className="text-red-500" />
+              <IconHeartFilled size={15} className="text-red-500" />
             ) : (
-              <IconHeart size={16} />
+              <IconHeart size={15} />
             )}
           </button>
 
           <button
             type="button"
             onClick={handleCompare}
-            className="bg-white h-8 w-8 rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 shadow-xs hover:shadow-md transition cursor-pointer"
+            className="bg-white size-7 sm:size-8 rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 shadow-xs hover:shadow-md transition cursor-pointer"
             title="Compare"
             aria-label="Compare"
           >
-            <IconArrowsExchange size={16} />
+            <IconArrowsExchange size={15} />
           </button>
 
           <Link
             href={productUrl}
-            className="bg-white h-8 w-8 rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 shadow-xs hover:shadow-md transition cursor-pointer"
+            className="bg-white size-7 sm:size-8 rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 shadow-xs hover:shadow-md transition cursor-pointer"
             title="View details"
             aria-label="View details"
           >
-            <IconEye size={16} />
+            <IconEye size={15} />
           </Link>
         </div>
       </div>
 
       {/* Product Content Details */}
-      <div className="p-4 flex flex-col flex-1 justify-between">
+      <div className="p-2.5 sm:p-4 flex flex-col flex-1 justify-between">
         <div>
           {/* Category */}
-          <div className="text-xs text-gray-500 mb-1 font-medium">
+          <div className="text-[11px] sm:text-xs text-gray-500 mb-0.5 sm:mb-1 font-medium">
             {product.category?.name}
           </div>
 
@@ -196,39 +196,39 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-medium mb-1 cursor-pointer" title={product.title}>
             <Link
               href={productUrl}
-              className="line-clamp-2 text-gray-800 hover:text-primary-600 transition-colors text-sm font-semibold"
+              className="line-clamp-2 text-gray-800 hover:text-primary-600 transition-colors text-xs sm:text-sm font-semibold"
             >
               {product.title}
             </Link>
           </h3>
 
           {/* Star Ratings */}
-          <div className="flex items-center mb-2">
-            <div className="flex text-amber-400 mr-2 items-center">
-              <div className="text-yellow-400 flex items-center">
+          <div className="flex items-center mb-1.5 sm:mb-2">
+            <div className="flex text-amber-400 mr-1 sm:mr-2 items-center">
+              <div className="text-yellow-400 flex items-center text-xs">
                 {renderStars(product.ratingsAverage)}
               </div>
             </div>
-            <span className="text-xs text-gray-500 font-medium">
+            <span className="text-[10px] sm:text-xs text-gray-500 font-medium">
               {product.ratingsAverage} ({product.ratingsQuantity})
             </span>
           </div>
         </div>
 
         {/* Pricing and Add-to-cart button */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2">
-          <div className="flex items-baseline">
+        <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-gray-100 mt-1.5 sm:mt-2 gap-1">
+          <div className="flex flex-col sm:flex-row sm:items-baseline min-w-0">
             {hasDiscount ? (
               <>
-                <span className="text-lg font-bold text-primary-600">
+                <span className="text-xs sm:text-base font-bold text-primary-600 truncate">
                   {product.priceAfterDiscount} EGP
                 </span>
-                <span className="text-xs sm:text-sm text-gray-400 line-through ml-2">
+                <span className="text-[10px] sm:text-xs text-gray-400 line-through sm:ml-1.5 truncate">
                   {product.price} EGP
                 </span>
               </>
             ) : (
-              <span className="text-lg font-bold text-gray-800">
+              <span className="text-xs sm:text-base font-bold text-gray-800 truncate">
                 {product.price} EGP
               </span>
             )}
@@ -237,7 +237,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             type="button"
             onClick={handleAddToCart}
-            className={`h-10 w-10 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md ${
+            className={`size-8 sm:size-10 shrink-0 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md ${
               isAdded
                 ? "bg-emerald-600 text-white scale-105"
                 : "bg-primary-600 text-white hover:bg-primary-700 active:scale-95"
@@ -246,9 +246,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             aria-label="Add to cart"
           >
             {isAdded ? (
-              <IconCheck size={20} stroke={2.5} />
+              <IconCheck className="w-4 h-4 sm:w-5 sm:h-5" stroke={2.5} />
             ) : (
-              <IconPlus size={20} stroke={2.5} />
+              <IconPlus className="w-4 h-4 sm:w-5 sm:h-5" stroke={2.5} />
             )}
           </button>
         </div>

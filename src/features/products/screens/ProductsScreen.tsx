@@ -11,6 +11,7 @@ import {
   IconHome,
   IconLoader2,
   IconPackage,
+  IconSearch,
   IconTags,
   IconX,
 } from "@tabler/icons-react";
@@ -24,6 +25,7 @@ export default function ProductsScreen() {
   const brandId = searchParams.get("brand") || undefined;
   const categoryId = searchParams.get("category") || undefined;
   const subcategoryId = searchParams.get("subcategory") || undefined;
+  const keyword = searchParams.get("keyword") || undefined;
 
   // Specific brand details from GET /brands/:id
   const { data: brand, isLoading: isBrandLoading } = useBrand(brandId);
@@ -36,21 +38,35 @@ export default function ProductsScreen() {
       brand: brandId,
       category: categoryId,
       subcategory: subcategoryId,
+      keyword: keyword,
       limit: 50,
     });
 
-  const products = productsData?.data || [];
+  const rawProducts = productsData?.data || [];
+  const products = keyword
+    ? rawProducts.filter(
+        (p) =>
+          p.title?.toLowerCase().includes(keyword.toLowerCase()) ||
+          p.category?.name?.toLowerCase().includes(keyword.toLowerCase()) ||
+          p.brand?.name?.toLowerCase().includes(keyword.toLowerCase())
+      )
+    : rawProducts;
+
   const isLoading = isProductsLoading || (Boolean(brandId) && isBrandLoading);
-  const hasActiveFilter = Boolean(brandId || categoryId || subcategoryId);
+  const hasActiveFilter = Boolean(brandId || categoryId || subcategoryId || keyword);
 
   // Dynamic banner title & subtitle
-  const title = brand
+  const title = keyword
+    ? `Results for "${keyword}"`
+    : brand
     ? brand.name
     : category
     ? category.name
     : "All Products";
 
-  const subtitle = brand
+  const subtitle = keyword
+    ? `Found ${products.length} matching products`
+    : brand
     ? `Shop ${brand.name} products`
     : category
     ? `Browse products in ${category.name}`
@@ -167,6 +183,17 @@ export default function ProductsScreen() {
               >
                 <IconCategory size={14} stroke={2.5} />
                 <span>{category.name}</span>
+                <IconX size={14} stroke={2.5} />
+              </Link>
+            )}
+
+            {keyword && (
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-medium hover:bg-amber-200 transition-colors"
+              >
+                <IconSearch size={14} stroke={2.5} />
+                <span>&ldquo;{keyword}&rdquo;</span>
                 <IconX size={14} stroke={2.5} />
               </Link>
             )}

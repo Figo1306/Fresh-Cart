@@ -118,26 +118,26 @@ export default function HomeSliders() {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
-                className="h-[400px] flex items-center justify-center relative overflow-hidden"
+                className="h-[280px] sm:h-[350px] md:h-[400px] flex items-center justify-center relative overflow-hidden"
               >
-                <div className="overlay py-20 text-white p-4 w-full h-full bg-linear-to-r from-green-500/90 to-green-400/50 flex items-center">
+                <div className="overlay py-8 sm:py-16 md:py-20 text-white p-4 w-full h-full bg-linear-to-r from-green-500/95 sm:from-green-500/90 to-green-400/60 flex items-center">
                   <div className="container h-full flex flex-col justify-center">
-                    <h2 className="text-white text-3xl font-bold mb-4 max-w-96">
+                    <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-4 max-w-sm sm:max-w-96">
                       {slide.title}
                     </h2>
-                    <p className="text-white/95 text-base">
+                    <p className="text-white/95 text-xs sm:text-sm md:text-base line-clamp-2">
                       {slide.subtitle}
                     </p>
-                    <div className="mt-4 flex items-center">
+                    <div className="mt-3 sm:mt-4 flex items-center gap-2 flex-wrap">
                       <Link
                         href={slide.primaryBtn.href}
-                        className={`btn bg-white border-2 border-white/50 ${slide.primaryBtn.colorClass} inline-block px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform`}
+                        className={`btn bg-white border-2 border-white/50 ${slide.primaryBtn.colorClass} inline-block px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg font-semibold hover:scale-105 transition-transform`}
                       >
                         {slide.primaryBtn.text}
                       </Link>
                       <Link
                         href={slide.secondaryBtn.href}
-                        className="btn bg-transparent border-2 border-white/50 text-white ml-2 inline-block px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform"
+                        className="btn bg-transparent border-2 border-white/50 text-white inline-block px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg font-semibold hover:scale-105 transition-transform"
                       >
                         {slide.secondaryBtn.text}
                       </Link>
